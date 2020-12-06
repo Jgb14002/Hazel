@@ -14,7 +14,6 @@ namespace Hazel
 	};
 
 	//IMPLEMENTED BY CLIENT APPLICATION
-
 	Application* CreateApplication();
 }
 
