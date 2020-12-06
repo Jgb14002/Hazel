@@ -4,7 +4,8 @@ bin/
 bin-int/
 
 # Files
-**.user
-**.vcxproj
-**.filters
-**.sln
+*.user
+*.vcxproj
+*.filters
+*.sln
+*.bat
