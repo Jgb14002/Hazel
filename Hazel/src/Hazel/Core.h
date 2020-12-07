@@ -9,3 +9,5 @@
 #else
 	#error Hazel only supports Windows platform(s)
 #endif
+
+#define BIT(x) (1 << x)
