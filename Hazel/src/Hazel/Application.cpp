@@ -1,4 +1,4 @@
-#include "Application.h"
+#include "Hazel/Application.h"
 
 namespace Hazel
 {
