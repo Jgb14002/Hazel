@@ -27,7 +27,7 @@ namespace Hazel
 		m_Data.Width = properties.Width;
 		m_Data.Height = properties.Height;
 
-		HZ_CORE_INFO("Creating window {0} ({1}, {2})", properties.Title, properties.Width, properties.Height);
+		HZ_CORE_INFO("Creating window: \"{0}\" ({1}, {2})", properties.Title, properties.Width, properties.Height);
 		
 		if (!s_GLFWInitialized)
 		{
