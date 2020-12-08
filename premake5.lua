@@ -74,11 +74,7 @@ project "Hazel"
     filter "configurations:Debug"
         symbols "On"
         runtime "Debug"
-        defines
-        {
-            "HZ_DEBUG",
-            "HZ_ENABLE_ASSERTS"
-        }
+        defines "HZ_DEBUG"
 
     filter "configurations:Release"
         optimize "On"
@@ -125,11 +121,7 @@ project "Sandbox"
     filter "configurations:Debug"
         symbols "On"
         runtime "Debug"
-        defines
-        {
-            "HZ_DEBUG",
-            "HZ_ENABLE_ASSERTS"
-        }
+        defines "HZ_DEBUG"
 
     filter "configurations:Release"
         optimize "On"

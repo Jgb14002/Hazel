@@ -8,7 +8,7 @@ public:
 
 	virtual void OnUpdate() override
 	{
-		HZ_INFO("SandboxLayer::OnUpdate");
+		//HZ_INFO("SandboxLayer::OnUpdate");
 	}
 
 	virtual void OnEvent(Hazel::Event& event) override

@@ -26,7 +26,7 @@ namespace Hazel
 			WindowClose, WindowResize, WindowFocus, WindowLostFocus,
 			WindowMoved,
 			AppTick, AppUpdate, AppRender,
-			KeyPressed, KeyReleased,
+			KeyPressed, KeyReleased, KeyTyped,
 			MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 		};
 
@@ -34,9 +34,9 @@ namespace Hazel
 		{
 			None = 0,
 			Application = BIT(0),
-			Input = BIT(1),
-			Keyboard = BIT(2),
-			Mouse = BIT(3),
+			Input       = BIT(1),
+			Keyboard    = BIT(2),
+			Mouse       = BIT(3),
 			MouseButton = BIT(4)
 		};
 
@@ -68,7 +68,7 @@ namespace Hazel
 		{
 			if (m_Event.GetEventType() == T::GetStaticType())
 			{
-				auto event = *dynamic_cast<T*>(&m_Event);
+				auto event = *static_cast<T*>(&m_Event);
 				m_Event.m_Handled = func(event);
 				return true;
 			}
