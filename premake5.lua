@@ -12,8 +12,10 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
+IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 
 include "Hazel/vendor/GLFW"
+include "Hazel/vendor/GLAD"
 
 project "Hazel"
     location "Hazel"
@@ -38,18 +40,20 @@ project "Hazel"
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
-        "%{IncludeDir.GLFW}"
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}"
     }
 
     links
     {
         "GLFW",
+        "Glad",
         "opengl32.lib"
     }
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "Off"
         systemversion "latest"
 
         defines
@@ -64,21 +68,20 @@ project "Hazel"
         }
 
     filter "configurations:Debug"
-        defines "HZ_DEBUG"
         symbols "On"
-
         defines
         {
+            "HZ_DEBUG",
             "HZ_ENABLE_ASSERTS"
         }
 
     filter "configurations:Release"
-        defines "HZ_RELEASE"
         optimize "On"
+        defines "HZ_RELEASE"
 
     filter "configurations:Dist"
-        defines "HZ_DIST"
         optimize "On"
+        defines "HZ_DIST"
 
 project "Sandbox"
     location "Sandbox"
@@ -110,7 +113,7 @@ project "Sandbox"
 
     filter "system:windows"
         cppdialect "C++17"
-        staticruntime "On"
+        staticruntime "Off"
         systemversion "latest"
 
         defines
@@ -119,13 +122,17 @@ project "Sandbox"
         }
 
     filter "configurations:Debug"
-        defines "HZ_DEBUG"
         symbols "On"
+        defines
+        {
+            "HZ_DEBUG",
+            "HZ_ENABLE_ASSERTS"
+        }
 
     filter "configurations:Release"
-        defines "HZ_RELEASE"
         optimize "On"
+        defines "HZ_RELEASE"
 
     filter "configurations:Dist"
-        defines "HZ_DIST"
         optimize "On"
+        defines "HZ_DIST"

@@ -49,6 +49,8 @@ namespace Hazel
 		{
 			return GetCategoryFlags() & category;
 		}
+		inline bool Handled() const { return m_Handled; }
+		inline void SetHandled(bool handled) { m_Handled = handled; }
 	protected:
 		bool m_Handled = false;
 	};
