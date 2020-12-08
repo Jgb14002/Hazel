@@ -1,5 +1,6 @@
 #include <Hazel.h>
 #include <glm/glm.hpp>
+#include <imgui/imgui.h>
 
 class SandboxLayer : public Hazel::Layer
 {
@@ -16,6 +17,13 @@ public:
 	{
 		HZ_TRACE("{0}", event);
 	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Test");
+		ImGui::Text("Sample Text");
+		ImGui::End();
+	}
 };
 
 class Sandbox : public Hazel::Application
@@ -24,7 +32,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new SandboxLayer());
-		PushOverlay(new Hazel::ImGuiLayer());
 	}
 	~Sandbox() = default;
 };
