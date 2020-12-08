@@ -23,6 +23,7 @@ public:
 	Sandbox()
 	{
 		PushLayer(new SandboxLayer());
+		PushOverlay(new Hazel::ImGuiLayer());
 	}
 	~Sandbox() = default;
 };

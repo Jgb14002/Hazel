@@ -13,14 +13,18 @@ outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Hazel/vendor/GLFW/include"
 IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
+IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 
 include "Hazel/vendor/GLFW"
 include "Hazel/vendor/GLAD"
+include "Hazel/vendor/imgui"
 
 project "Hazel"
     location "Hazel"
-    kind "SharedLib"
+    kind "StaticLib"
     language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -36,40 +40,40 @@ project "Hazel"
         "%{prj.name}/src/**.cpp"
     }
 
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS",
+        "GLFW_INCLUDE_NONE"
+    }
+
     includedirs
     {
         "%{prj.name}/src",
         "%{prj.name}/vendor/spdlog/include",
         "%{IncludeDir.GLFW}",
-        "%{IncludeDir.Glad}"
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.ImGui}"
     }
 
     links
     {
         "GLFW",
         "Glad",
+        "ImGui",
         "opengl32.lib"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"
         systemversion "latest"
 
-        defines
-        {
-            "HZ_PLATFORM_WINDOWS",
-            "HZ_BUILD_DLL",
-            "GLFW_INCLUDE_NONE"
-        }
-
         postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
-        }
+		{
+			("{COPY} %{cfg.buildtarget.relpath} ../bin/" .. outputdir .. "/Sandbox")
+		}
 
     filter "configurations:Debug"
         symbols "On"
+        runtime "Debug"
         defines
         {
             "HZ_DEBUG",
@@ -78,17 +82,20 @@ project "Hazel"
 
     filter "configurations:Release"
         optimize "On"
+        runtime "Release"
         defines "HZ_RELEASE"
 
     filter "configurations:Dist"
         optimize "On"
+        runtime "Release"
         defines "HZ_DIST"
 
 project "Sandbox"
     location "Sandbox"
     kind "ConsoleApp"
-
     language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
 
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
@@ -113,17 +120,11 @@ project "Sandbox"
     }
 
     filter "system:windows"
-        cppdialect "C++17"
-        staticruntime "Off"
         systemversion "latest"
-
-        defines
-        {
-            "HZ_PLATFORM_WINDOWS"
-        }
-
+        
     filter "configurations:Debug"
         symbols "On"
+        runtime "Debug"
         defines
         {
             "HZ_DEBUG",
@@ -132,8 +133,10 @@ project "Sandbox"
 
     filter "configurations:Release"
         optimize "On"
+        runtime "Release"
         defines "HZ_RELEASE"
 
     filter "configurations:Dist"
         optimize "On"
+        runtime "Release"
         defines "HZ_DIST"
