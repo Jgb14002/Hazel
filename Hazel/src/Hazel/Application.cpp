@@ -2,8 +2,6 @@
 
 #include "Hazel/Application.h"
 
-#include <glad/glad.h>
-
 namespace Hazel
 {
 	Application* Application::s_Instance = nullptr;
@@ -38,8 +36,6 @@ namespace Hazel
 	{
 		while (m_Running)
 		{
-			glClearColor(1, 0, 1, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
 			for (auto& layer : m_LayerStack) layer->OnUpdate();
 
 			m_ImGuiLayer->Begin();
