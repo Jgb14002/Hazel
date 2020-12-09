@@ -71,12 +71,7 @@ project "Hazel"
 
     filter "system:windows"
         systemversion "latest"
-
-        postbuildcommands
-        {
-            ("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-        }
-
+        
     filter "configurations:Debug"
         symbols "On"
         runtime "Debug"
